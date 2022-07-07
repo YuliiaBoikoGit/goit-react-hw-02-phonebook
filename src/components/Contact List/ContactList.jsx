@@ -1,4 +1,4 @@
-import { List } from "./ContactList.styled";
+// import { List } from "./ContactList.styled";
 
 export const ContactList = () => {
 
