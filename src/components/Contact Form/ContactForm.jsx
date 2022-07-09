@@ -1,6 +1,5 @@
 import React from 'react';
-import { nanoid } from "nanoid";
-// import { Form } from "./ContactForm.styled";
+import { Form, Input, Label, Button } from "./ContactForm.styled";
 
 export class ContactForm extends React.Component {
     state = {
@@ -26,38 +25,33 @@ export class ContactForm extends React.Component {
         this.setState({ name: '', number: '' });
     };
 
-    nameInputId = nanoid();
-    telInputID = nanoid();
-
     render() {
         return (
-            <form onSubmit={this.handleSubmitForm}>
-                <label htmlFor={this.nameInputId}>
-                    Name <input
+            <Form onSubmit={this.handleSubmitForm}>
+                <Label>
+                    Name <Input
                         type="text"
                         name="name"
-                        id={this.nameInputId}
                         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                         required
                         value={this.state.name}
                         onChange={this.handleInputChange}
                     />
-                </label>
-                <label htmlFor={this.telInputID}>
-                    Number <input
+                </Label>
+                <Label>
+                    Number <Input
                         type="tel"
                         name="number"
-                        id={this.telInputID}
                         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                         required
                         value={this.state.number}
                         onChange={this.handleInputChange}
                     />
-                </label>
-                <button type="submit">Add Contact</button>
-            </form>
+                </Label>
+                <Button type="submit">Add Contact</Button>
+            </Form>
         );
     };
 };

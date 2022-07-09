@@ -1,6 +1,6 @@
 import React from "react";
 import { nanoid } from "nanoid";
-import { Container } from "./App.styled";
+import { Container, PageTitle, Title } from "./App.styled";
 import { ContactForm } from "components/Contact Form/ContactForm";
 import { ContactList } from "components/Contact List/ContactList";
 import { Filter } from "components/Filter/Filter";
@@ -17,15 +17,21 @@ export class App extends React.Component {
   };
 
   formSubmitHandler = data => {
-    const contact = {
-      name: data.name,
-      number: data.number,
-      id: nanoid(),
-    };
+    const existingContact = this.state.contacts.map(contact => contact.name).includes(data.name);
 
-    this.setState(prevState => ({
-      contacts: [contact, ...prevState.contacts]
-    }));
+    if (existingContact) {
+      alert(`${data.name} is already in contacts`);
+    } else {
+      const contact = {
+        name: data.name,
+        number: data.number,
+        id: nanoid(),
+      };
+
+      this.setState(prevState => ({
+        contacts: [contact, ...prevState.contacts]
+      }));
+    };  
   };
 
   handleFIlterChange = event => {
@@ -39,18 +45,24 @@ export class App extends React.Component {
     return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
   };
 
+  deleteContact = contactID => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactID),
+    }));
+  };
+
   render() {
     const { filter } = this.state;
     const filteredContacts = this.getFilteredContacts();
 
     return (
       <Container>
-        <h1>Phonebook</h1>
+        <PageTitle>Phonebook</PageTitle>
         <ContactForm onSubmit={this.formSubmitHandler} />
 
-        <h2>Contacts</h2>
+        <Title>Contacts</Title>
         <Filter value={filter} onChange={this.handleFIlterChange} />
-        <ContactList contacts={filteredContacts} />
+        <ContactList contacts={filteredContacts} onDeleteContact={this.deleteContact} />
       </Container>
     );
   };
