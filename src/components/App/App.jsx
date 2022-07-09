@@ -12,7 +12,7 @@ export class App extends React.Component {
   };
 
   formSubmitHandler = data => {
-    const existingContact = this.state.contacts.map(contact => contact.name).includes(data.name);
+    const existingContact = this.state.contacts.find(contact => contact.name.toLowerCase() === data.name.toLowerCase());
 
     if (existingContact) {
       alert(`${data.name} is already in contacts`);
