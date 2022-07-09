@@ -31,7 +31,7 @@ export class App extends React.Component {
       this.setState(prevState => ({
         contacts: [contact, ...prevState.contacts]
       }));
-    };  
+    };
   };
 
   handleFIlterChange = event => {

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Form = styled.div`
+export const Form = styled.form`
     padding: 30px;
     margin-bottom: 35px;
     width: 500px;
